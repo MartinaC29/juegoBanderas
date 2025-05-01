@@ -1,0 +1,24 @@
+{
+  "name": "juegobanderas",
+  "version": "1.0.0",
+  "description": "Proyecto Integrador de WEB II, sobre un juego trivial de preguntas y respuestas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartinaC29/juegoBanderas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MartinaC29/juegoBanderas/issues"
+  },
+  "homepage": "https://github.com/MartinaC29/juegoBanderas#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}
