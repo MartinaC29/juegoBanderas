@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ranking de Jugadores</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-yellow-50 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-xl shadow-lg max-w-2xl w-full">
+    <h1 class="text-2xl font-bold mb-6 text-center">🏆 Ranking de Jugadores</h1>
+    <table class="w-full table-auto border-collapse">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border p-2">#</th>
+          <th class="border p-2">Jugador</th>
+          <th class="border p-2">Puntaje</th>
+          <th class="border p-2">Correctas</th>
+          <th class="border p-2">Incorrectas</th>
+          <th class="border p-2">Tiempo total (s)</th>
+        </tr>
+      </thead>
+      <tbody id="tablaRanking">
+        <!-- Los rankings los lleno con javascript -->
+      </tbody>
+    </table>
+    <div class="text-center mt-6">
+      <a href="/index.html" class="text-blue-600 hover:underline">Volver al inicio</a>
+    </div>
+  </div>
+
+  <script>
+    async function cargarRanking() {
+      const res = await fetch('/api/ranking');
+      const ranking = await res.json();
+
+      const tabla = document.getElementById('tablaRanking');
+      tabla.innerHTML = '';
+
+      ranking.forEach((partida, index) => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td class="border p-2 text-center">${index + 1}</td>
+          <td class="border p-2">${partida.jugador}</td>
+          <td class="border p-2 text-center">${partida.puntaje}</td>
+          <td class="border p-2 text-center">${partida.correctas}</td>
+          <td class="border p-2 text-center">${partida.incorrectas}</td>
+          <td class="border p-2 text-center">${partida.tiempoTotal}</td>
+        `;
+        tabla.appendChild(fila);
+      });
+    }
+
+    cargarRanking();
+  </script>
+</body>
+</html>
