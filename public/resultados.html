@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoQuiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center">
+    <h1 class="text-2xl font-bold mb-4">¡Juego terminado! 🎉</h1>
+    <p class="mb-2">Respuestas correctas: <span id="correctas"></span></p>
+    <p class="mb-2">Respuestas incorrectas: <span id="incorrectas"></span></p>
+    <p class="mb-2">Tiempo total: <span id="tiempoTotal"></span></p>
+    <p class="mb-4">Tiempo promedio por pregunta: <span id="tiempoPromedio"></span></p>
+    <a href="/index.html" class="text-blue-600 hover:underline">Volver a jugar</a>
+  </div>
+  <div class="mt-6">
+    <a href="/ranking.html" class="text-green-600 hover:underline">Ver Ranking</a>
+  </div>
+
+  <script>
+    // Ejemplo con datos guardados en localStorage
+    document.getElementById("correctas").innerText = localStorage.getItem("correctas") || "0";
+    document.getElementById("incorrectas").innerText = localStorage.getItem("incorrectas") || "0";
+    document.getElementById("tiempoTotal").innerText = localStorage.getItem("tiempoTotal") || "0s";
+    document.getElementById("tiempoPromedio").innerText = localStorage.getItem("tiempoPromedio") || "0s";
+  </script>
+</body>
+</html>

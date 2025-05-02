@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoQuiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-green-50 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-6 rounded-xl shadow-xl max-w-xl w-full text-center">
+    <h2 id="greeting" class="text-xl font-semibold mb-4"></h2>
+    <div id="pregunta" class="text-lg font-bold mb-4">Cargando pregunta...</div>
+    <div id="opciones" class="space-y-2"></div>
+    <div id="feedback" class="mt-4 text-sm font-semibold"></div>
+    <div class="mt-6 text-sm">
+      Pregunta <span id="contador">1</span>/10 – Puntaje: <span id="puntaje">0</span>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
