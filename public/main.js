@@ -40,12 +40,23 @@ async function nuevaPregunta() {
 function mostrarPregunta() {
   opcionesEl.innerHTML = '';
   feedbackEl.innerText = '';
+  preguntaEl.classList.remove("fade-in");
+  void preguntaEl.offsetWidth;
 
   if (preguntaActual.tipo === 'bandera' && preguntaActual.bandera) {
-    preguntaEl.innerHTML = `<img src="${preguntaActual.bandera}" alt="Bandera" class="mx-auto mb-4 w-32 h-20 object-cover"/>${preguntaActual.pregunta}`;
+    preguntaEl.innerHTML = `
+  <div class="flex flex-col items-center mb-4">
+    <img src="${preguntaActual.bandera}" 
+         alt="Bandera" 
+         class="w-48 h-32 object-cover rounded-2xl shadow-lg border-4 border-purple-500" />
+  </div>
+  <p>${preguntaActual.pregunta}</p>`;
+  
   } else {
     preguntaEl.innerText = preguntaActual.pregunta;
   }
+
+  preguntaEl.classList.add("fade-in");
 
   // Crear 3 opciones incorrectas + 1 correcta
   const opciones = [preguntaActual.respuesta];
@@ -108,7 +119,7 @@ function finalizarJuego() {
   const tiempoTotal = tiemposPorPregunta.reduce((a, b) => a + b, 0);
   const tiempoPromedio = tiempoTotal / tiemposPorPregunta.length;
 
-  // Guardar en localStorage para mostrar en resultado.html
+  // Guardar en localStorage
   localStorage.setItem('correctas', correctas);
   localStorage.setItem('incorrectas', incorrectas);
   localStorage.setItem('tiempoTotal', `${tiempoTotal.toFixed(2)}s`);
@@ -127,6 +138,11 @@ function finalizarJuego() {
     })
   });
 
-  // Redirigir a resultados
-  window.location.href = '/resultado.html';
+  // animación de salida
+  const contenedor = document.getElementById("juego"); // o el div principal del juego
+  contenedor.classList.add("fade-out");
+
+  setTimeout(() => {
+    window.location.href = '/resultados.html';
+  }, 500);
 }

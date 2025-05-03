@@ -1,0 +1,86 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+  
+/* Personalizar botones */
+button {
+    transition: background-color 0.3s ease;
+}
+  
+button:hover {
+    background-color: #4b9ce2;
+    color: white;
+}
+  
+/* Animaciones suaves */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+  
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+  
+/* Mejorar feedback */
+  #feedback {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+  
+/* Personalizar tabla de ranking */
+  table th, table td {
+    text-align: center;
+    padding: 8px;
+}
+  
+thead {
+    background-color: #f0f0f0;
+}
+  
+/* Fondos suaves */
+  .bg-green-50 {
+    background-color: #f0fdf4;
+}
+  
+.bg-blue-50 {
+    background-color: #eff6ff;
+}
+  
+.bg-yellow-50 {
+    background-color: #fef9c3;
+}
+
+button {
+    transition: all 0.3s ease;
+}
+  
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+  
+.fade-in {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeOut {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+}
+  
+.fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+}
