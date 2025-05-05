@@ -4,6 +4,7 @@ const feedbackEl = document.getElementById('feedback');
 const contadorEl = document.getElementById('contador');
 const puntajeEl = document.getElementById('puntaje');
 
+let paisesGlobal = [];
 let preguntaActual = {};
 let preguntasRespondidas = 0;
 let puntaje = 0;
@@ -19,19 +20,29 @@ if (greetingEl) {
   greetingEl.innerText = `¡Hola, ${playerName}!`;
 }
 
-// Iniciar primer pregunta
-nuevaPregunta();
+// Cargar países y arrancar juego
+cargarPaises().then(() => {
+  nuevaPregunta();
+});
 
 
 // FUNCIONES
 
+async function cargarPaises() {
+  try {
+    const res = await fetch('https://restcountries.com/v3.1/all');
+    paisesGlobal = await res.json();
+  } catch (error) {
+    console.error('Error al cargar países:', error);
+  }
+}
 
 async function nuevaPregunta() {
   try {
     const res = await fetch('/api/pregunta');
     preguntaActual = await res.json();
     mostrarPregunta();
-    tiempoInicioPregunta = Date.now(); // Marcar el inicio del tiempo
+    tiempoInicioPregunta = Date.now(); // Marcar inicio del tiempo
   } catch (error) {
     console.error('Error al obtener la pregunta', error);
   }
@@ -45,20 +56,19 @@ function mostrarPregunta() {
 
   if (preguntaActual.tipo === 'bandera' && preguntaActual.bandera) {
     preguntaEl.innerHTML = `
-  <div class="flex flex-col items-center mb-4">
-    <img src="${preguntaActual.bandera}" 
-         alt="Bandera" 
-         class="w-48 h-32 object-cover rounded-2xl shadow-lg border-4 border-purple-500" />
-  </div>
-  <p>${preguntaActual.pregunta}</p>`;
-  
+      <div class="flex flex-col items-center mb-4">
+        <img src="${preguntaActual.bandera}" 
+             alt="Bandera" 
+             class="w-48 h-32 object-cover rounded-2xl shadow-lg border-4 border-purple-500" />
+      </div>
+      <p>${preguntaActual.pregunta}</p>`;
   } else {
     preguntaEl.innerText = preguntaActual.pregunta;
   }
 
   preguntaEl.classList.add("fade-in");
 
-  // Crear 3 opciones incorrectas + 1 correcta
+  // Crear opciones
   const opciones = [preguntaActual.respuesta];
   while (opciones.length < 4) {
     const randomPais = paisRandom();
@@ -66,7 +76,8 @@ function mostrarPregunta() {
       opciones.push(randomPais);
     }
   }
-  opciones.sort(() => Math.random() - 0.5); // Mezclar opciones
+
+  opciones.sort(() => Math.random() - 0.5); // Mezclar
 
   opciones.forEach(opcion => {
     const button = document.createElement('button');
@@ -77,16 +88,14 @@ function mostrarPregunta() {
   });
 }
 
-async function paisRandom() {
-  const res = await fetch('https://restcountries.com/v3.1/all');
-  const paises = await res.json();
-  const random = paises[Math.floor(Math.random() * paises.length)];
+function paisRandom() {
+  const random = paisesGlobal[Math.floor(Math.random() * paisesGlobal.length)];
   return random.name.common;
 }
 
 function verificarRespuesta(opcionSeleccionada) {
   const tiempoFin = Date.now();
-  const tiempoRespuesta = (tiempoFin - tiempoInicioPregunta) / 1000; // en segundos
+  const tiempoRespuesta = (tiempoFin - tiempoInicioPregunta) / 1000;
   tiemposPorPregunta.push(tiempoRespuesta);
 
   if (opcionSeleccionada === preguntaActual.respuesta) {
@@ -119,13 +128,11 @@ function finalizarJuego() {
   const tiempoTotal = tiemposPorPregunta.reduce((a, b) => a + b, 0);
   const tiempoPromedio = tiempoTotal / tiemposPorPregunta.length;
 
-  // Guardar en localStorage
   localStorage.setItem('correctas', correctas);
   localStorage.setItem('incorrectas', incorrectas);
   localStorage.setItem('tiempoTotal', `${tiempoTotal.toFixed(2)}s`);
   localStorage.setItem('tiempoPromedio', `${tiempoPromedio.toFixed(2)}s`);
 
-  // Enviar partida al servidor
   fetch('/api/partida', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -138,8 +145,7 @@ function finalizarJuego() {
     })
   });
 
-  // animación de salida
-  const contenedor = document.getElementById("juego"); // o el div principal del juego
+  const contenedor = document.getElementById("juego");
   contenedor.classList.add("fade-out");
 
   setTimeout(() => {
