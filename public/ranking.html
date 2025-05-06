@@ -33,6 +33,8 @@
     async function cargarRanking() {
       const res = await fetch('/api/ranking');
       const ranking = await res.json();
+      console.log(ranking);
+
 
       const tabla = document.getElementById('tablaRanking');
       tabla.innerHTML = '';

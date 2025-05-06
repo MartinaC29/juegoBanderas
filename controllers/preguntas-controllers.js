@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const { leerPartidas, guardarPartidas } = require('../utils/archivo');
 
 // Obtener una pregunta aleatoria
 async function obtenerPregunta(req, res) {
@@ -47,9 +48,7 @@ async function obtenerPregunta(req, res) {
   }
 }
 
-// Guardar partida en un array (puede ser reemplazado por una base de datos)
-let partidas = [];
-
+// Guardar una nueva partida
 function guardarPartida(req, res) {
   const { jugador, puntaje, correctas, incorrectas, tiempoTotal } = req.body;
 
@@ -66,12 +65,16 @@ function guardarPartida(req, res) {
     fecha: new Date().toISOString()
   };
 
+  const partidas = leerPartidas(); // leer siempre actualizado
   partidas.push(nuevaPartida);
+  guardarPartidas(partidas);
+
   res.status(201).json({ mensaje: 'Partida guardada correctamente' });
 }
 
 // Obtener el ranking (ordenado por puntaje descendente)
 function obtenerRanking(req, res) {
+  const partidas = leerPartidas(); // leer siempre actualizado
   const ranking = [...partidas].sort((a, b) => b.puntaje - a.puntaje);
   res.json(ranking);
 }
