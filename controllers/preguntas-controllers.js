@@ -17,7 +17,7 @@ async function obtenerPregunta(req, res) {
       if (tipo === "capital" && pais.capital && pais.capital.length > 0) {
         pregunta = {
           tipo: "capital",
-          pregunta: `¿De qué país es capital ${pais.capital[0]}?`,
+          pregunta: `¿De qué país es la capital ${pais.capital[0]}?`,
           respuesta: pais.name.common
         };
       } else if (tipo === "bandera" && pais.flags && pais.flags.png) {
