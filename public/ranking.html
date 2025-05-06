@@ -39,7 +39,7 @@
       const tabla = document.getElementById('tablaRanking');
       tabla.innerHTML = '';
 
-      ranking.forEach((partida, index) => {
+      ranking.slice(0, 10).forEach((partida, index) => {
         const fila = document.createElement('tr');
         fila.innerHTML = `
           <td class="border p-2 text-center">${index + 1}</td>
