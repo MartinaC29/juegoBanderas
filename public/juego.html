@@ -6,6 +6,20 @@
   <title>GeoQuiz</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0d0d0d, #3b0764, #9333ea, #f472b6);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      height: 100vh;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
 </head>
 <body class="bg-green-50 min-h-screen flex items-center justify-center">
   <div id="juego" class="bg-white p-6 rounded-xl shadow-xl max-w-xl w-full text-center">

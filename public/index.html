@@ -22,29 +22,45 @@
 </head>
 <body class="flex flex-col items-center justify-center text-white font-sans relative">
 
+  <!-- Título -->
+  <h1 class="text-3xl md:text-5xl font-bold mb-16 text-center">GeoQuiz 🌍 </h1>
 
-    <!-- Título -->
-    <h1 class="text-3xl md:text-5xl font-bold mb-16 text-center">GeoQuiz 🌍 </h1>
-  
-    <!-- Botones -->
-    <div class="flex gap-10">
-      <a href="/index.html" class="bg-purple-800 hover:bg-purple-600 px-8 py-4 rounded-2xl text-lg transition shadow-lg">
-        Nuevo Juego
-      </a>
-      <a href="/ranking.html" class="bg-purple-800 hover:bg-purple-600 px-8 py-4 rounded-2xl text-lg transition shadow-lg">
-        Historial
-      </a>
-    </div>
-  
-    <script>
-      document.getElementById("start-form").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const playerName = document.getElementById("playerName").value.trim();
-        if (playerName !== "") {
-          localStorage.setItem("playerName", playerName);
-          window.location.href = "/juego.html";
-        }
-      });
-    </script>
-  </body>
-  </html>
+  <!-- Campo para nombre del jugador -->
+  <input
+    id="playerName"
+    type="text"
+    placeholder="Tu nombre"
+    class="mb-8 px-6 py-3 rounded-xl text-black text-lg shadow-md w-64 text-center"
+  />
+
+  <!-- Botones -->
+  <div class="flex gap-10">
+    <button
+      id="nuevo-juego"
+      class="bg-purple-800 hover:bg-purple-600 px-8 py-4 rounded-2xl text-lg transition shadow-lg"
+    >
+      Nuevo Juego
+    </button>
+    <a
+      href="/ranking.html"
+      class="bg-purple-800 hover:bg-purple-600 px-8 py-4 rounded-2xl text-lg transition shadow-lg"
+    >
+      Historial
+    </a>
+  </div>
+
+  <!-- Script -->
+  <script>
+    document.getElementById("nuevo-juego").addEventListener("click", function () {
+      const playerName = document.getElementById("playerName").value.trim();
+      if (playerName !== "") {
+        localStorage.setItem("playerName", playerName);
+        window.location.href = "/juego.html";
+      } else {
+        alert("Por favor, ingresa tu nombre para comenzar el juego.");
+      }
+    });
+  </script>
+
+</body>
+</html>
