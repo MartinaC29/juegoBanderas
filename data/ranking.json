@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "jugador": "Martina",
+    "puntaje": 27,
+    "correctas": 7,
+    "incorrectas": 3,
+    "tiempoTotal": "74.59",
+    "fecha": "2025-05-07T01:42:57.544Z"
+  }
+]

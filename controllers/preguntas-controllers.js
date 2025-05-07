@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const { leerPartidas, guardarPartidas } = require('../utils/archivo');
 
 // Obtener una pregunta aleatoria
@@ -13,7 +12,7 @@ async function obtenerPregunta(req, res) {
 
     const paisesConCapital = paises.filter(p => p.capital?.length && p.name?.common);
     const paisesConBandera = paises.filter(p => p.flags?.png && p.name?.common);
-    const paisesConFronteras = paises.filter(p => p.borders?.length && p.name?.common);
+    const paisesConFronteras = paises.filter(p => p.borders?.length && p.name?.common);    
 
     if (paisesConCapital.length) tiposDisponibles.push('capital');
     if (paisesConBandera.length) tiposDisponibles.push('bandera');
